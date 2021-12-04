@@ -8,8 +8,7 @@
 
 <style>
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    text-align: center;
+    font-family: Arial;
     color: #2c3e50;
     margin-top: 60px;
   }

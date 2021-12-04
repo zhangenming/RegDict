@@ -1,8 +1,20 @@
 <script setup>
-  import { computed, reactive, ref } from 'vue'
-  function decodeUnicode(arr) {
+  import { computed, reactive, ref, watchEffect } from 'vue'
+  import Item from './Item.vue'
+  import mock from '../mock'
+  function decodeUnicode(arr, origin) {
     return arr.map(e => ({
-      word: e.word,
+      word: (() => {
+        const idx = e.word.indexOf(origin)
+        const l = e.word.slice(0, idx)
+        const r = e.word.slice(idx + origin.length)
+        return {
+          word: e.word,
+          l,
+          m: origin,
+          r,
+        }
+      })(),
       definition: _decodeUnicode(e.definition),
     }))
     function _decodeUnicode(str) {
@@ -18,20 +30,22 @@
 
   const int = ref('react')
   const INT = computed(() => {
-    isMore.value = false
-    m.value = 0
-    out.value = []
+    // isMore.value = false
+    // m.value = 0
+    // out.value = []
     return `*${int.value}*`
   })
-
   const out = ref([])
+  const outMax = computed(() => {
+    return Math.max(...out.value.map(e => e.word.word.length))
+  })
   const OUT = computed(() => {
-    return out.value
-      .sort((l, r) => (l.word > r.word ? 1 : -1))
+    return [...out.value] // ?
+      .sort((l, r) => (l.word.word > r.word.word ? 1 : -1))
       .reduce(
         (all, now) => {
-          if (now.word.startsWith(int.value)) all.start.push(now)
-          else if (now.word.endsWith(int.value)) all.end.push(now)
+          if (now.word.word.startsWith(int.value)) all.start.push(now)
+          else if (now.word.word.endsWith(int.value)) all.end.push(now)
           else all.else.push(now)
           return all
         },
@@ -50,28 +64,45 @@
       })
       .then(res => {
         const { more, words } = res
-        out.value.push(...decodeUnicode(words))
+        out.value.push(...decodeUnicode(words, int.value))
         isMore.value = more
         m.value += n.value
       })
   }
+
+  ;(function mockData() {
+    const { more, words } = mock
+    out.value.push(...decodeUnicode(words, int.value))
+    isMore.value = more
+    m.value += n.value
+  })()
+
+  console.time()
+  'tmp'.llt
+  'tmp'.llt
+  'tmp'.llt
+  'tmp'.llt
+  console.timeEnd()
+  const _console = console
 </script>
 
 <template>
-  {{ out.length }}
-  <button @click="start">start {{ isMore ? 'more' : '' }}</button>
+  {{ 'tmp'.llt }}
+  {{ _console.time() }}
   <input type="text" v-model="int" />
-  <ul>
-    <li v-for="word of OUT.start">{{ word.word }}{{ word.definition }}</li>
-    ---
-    <li v-for="word of OUT.end">{{ word.word }}{{ word.definition }}</li>
-    ---
-    <li v-for="word of OUT.else">{{ word.word }}{{ word.definition }}</li>
-  </ul>
+  <button @click="start">start {{ isMore ? 'more' : '' }}</button>
+  {{ outMax }}
+  {{ out.length }}
+
+  <Item :words="OUT.start" />
+  <Item :words="OUT.end" />
+  <Item :words="OUT.else" />
+  {{ _console.timeEnd() }}
+  {{ 'tmp'.llt }}
 </template>
 
 <style scoped>
-  li {
-    list-style: none;
+  input {
+    color: #0088de;
   }
 </style>
