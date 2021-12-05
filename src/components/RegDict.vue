@@ -1,23 +1,44 @@
 <script setup>
-  import { computed, reactive, ref, watchEffect } from 'vue'
+  import {
+    computed,
+    reactive,
+    ref,
+    watch,
+    watchEffect,
+    onBeforeMount,
+    onMounted,
+    onBeforeUpdate,
+    onUpdated,
+    onBeforeUnmount,
+    onUnmounted,
+    onActivated,
+    onDeactivated,
+    onErrorCaptured,
+  } from 'vue'
   import Item from './Item.vue'
   import mock from '../mock'
   function decodeUnicode(arr, origin) {
-    return arr.map(e => ({
-      word: (() => {
-        const idx = e.word.indexOf(origin)
-        const l = e.word.slice(0, idx)
-        const r = e.word.slice(idx + origin.length)
-        return {
-          word: e.word,
-          l,
-          m: origin,
-          r,
-        }
-      })(),
-      definition: _decodeUnicode(e.definition),
-    }))
-    function _decodeUnicode(str) {
+    return arr
+      .filter(e => !out.value.find(ee => ee.word.word === e.word))
+      .map(e => ({
+        word: word(e.word),
+        definition: definition(e.definition),
+      }))
+    // .filter(
+    //   (e, i, arr) => arr.findIndex(ee => ee.definition === e.definition) === i
+    // )
+    function word(word) {
+      const idx = word.indexOf(origin)
+      const l = word.slice(0, idx)
+      const r = word.slice(idx + origin.length)
+      return {
+        word: word,
+        l,
+        m: origin,
+        r,
+      }
+    }
+    function definition(str) {
       return str.replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
         return String.fromCharCode(parseInt(match.replace(/\\u/, ''), 16))
       })
@@ -25,19 +46,31 @@
   }
 
   const m = ref(0) //idx
-  const n = ref(10) //页数
-  const isMore = ref(false)
+  const n = ref(50) //页数
+  const isMore = ref(true)
 
-  const int = ref('react')
+  const int = ref('key')
   const INT = computed(() => {
-    // isMore.value = false
-    // m.value = 0
-    // out.value = []
+    if (int.value.includes('?')) return int.value
+    if (int.value === '') return '*'
     return `*${int.value}*`
   })
+
+  watch(int, () => {
+    console.log(1)
+    isMore.value = true
+    m.value = 0
+    out.value = []
+  })
+
   const out = ref([])
   const outMax = computed(() => {
-    return Math.max(...out.value.map(e => e.word.word.length))
+    return (
+      out.value
+        .map(e => e.word.word.length)
+        .sort()
+        .pop() || 0
+    )
   })
   const OUT = computed(() => {
     return [...out.value] // ?
@@ -66,39 +99,28 @@
         const { more, words } = res
         out.value.push(...decodeUnicode(words, int.value))
         isMore.value = more
-        m.value += n.value
       })
+    m.value += n.value
   }
 
-  ;(function mockData() {
-    const { more, words } = mock
-    out.value.push(...decodeUnicode(words, int.value))
-    isMore.value = more
-    m.value += n.value
-  })()
-
-  console.time()
-  'tmp'.llt
-  'tmp'.llt
-  'tmp'.llt
-  'tmp'.llt
-  console.timeEnd()
-  const _console = console
+  const refresh = ref([])
 </script>
 
 <template>
-  {{ 'tmp'.llt }}
-  {{ _console.time() }}
-  <input type="text" v-model="int" />
-  <button @click="start">start {{ isMore ? 'more' : '' }}</button>
+  <!-- {{ ''.llt }} -->
+
+  refresh: {{ refresh.push('') }}
+
+  <p><input type="text" v-model="int" /></p>
+  <button @click="() => isMore && start()">
+    start {{ isMore ? 'more' : '' }}
+  </button>
   {{ outMax }}
   {{ out.length }}
 
-  <Item :words="OUT.start" />
-  <Item :words="OUT.end" />
-  <Item :words="OUT.else" />
-  {{ _console.timeEnd() }}
-  {{ 'tmp'.llt }}
+  <Item :all="[OUT.start, OUT.end, OUT.else]" />
+
+  <!-- {{ ''.llt }} -->
 </template>
 
 <style scoped>

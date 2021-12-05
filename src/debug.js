@@ -22,9 +22,21 @@ Object.defineProperties(Object.prototype, {
       // Array(1e2)
       //   .fill()
       //   .map(() => window)
-      var now = getT()
+      const now = getT()
       console.log((now - origins).toFixed(1), (now - old).toFixed(1))
       old = now
+      return this
+    },
+  },
+  lls: {
+    get() {
+      console.time()
+      return this
+    },
+  },
+  lle: {
+    get() {
+      console.timeEnd()
       return this
     },
   },

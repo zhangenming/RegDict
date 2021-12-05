@@ -1,11 +1,13 @@
 <script setup>
-  defineProps({
-    words: Array,
+  import { computed } from 'vue'
+
+  const props = defineProps({
+    all: Array,
   })
 </script>
 
 <template>
-  <ul>
+  <ul v-for="words of all">
     <li v-for="{ word, definition } of words">
       <span>
         <span>{{ word.l }}</span>
