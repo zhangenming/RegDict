@@ -3,16 +3,17 @@
 
   const props = defineProps({
     all: Array,
+    outMax: Number,
   })
 </script>
 
 <template>
-  <ul v-for="words of all">
-    <li v-for="{ word, definition } of words">
+  <ul v-for="words of all" v-if="outMax !== '20px'">
+    <li v-for="{ l, m, r, definition } of words">
       <span>
-        <span>{{ word.l }}</span>
-        <span>{{ word.m }}</span>
-        <span>{{ word.r }}</span>
+        <span>{{ l }}</span>
+        <span>{{ m }}</span>
+        <span>{{ r }}</span>
       </span>
       <span>{{ definition }}</span>
     </li>
@@ -21,22 +22,33 @@
 
 <style scoped>
   ul {
-    padding: 0;
+    padding: 10px 0;
+    margin: 0;
+    border-bottom: 5px solid #aaa;
+  }
+  ul:last-child {
+    border-bottom: none;
   }
   li {
     list-style: none;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
+    padding: 0 10px;
   }
-  li span:nth-child(1) {
-    width: 130px;
+  li:nth-child(even) {
+    background: #eee;
   }
-  li span:nth-child(2) {
+  li > span:nth-child(1) {
+    width: v-bind(outMax);
+    font-family: monospace;
+  }
+  li > span:nth-child(2) {
     flex: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 12px;
   }
   li span span:nth-child(2) {
     color: #0088de;
