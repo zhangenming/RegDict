@@ -1,9 +1,7 @@
 <script setup>
-  import { computed } from 'vue'
-
-  const props = defineProps({
+   defineProps({
     all: Array,
-    outMax: Number,
+    outMax: String,
   })
 </script>
 
