@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import T from './components/T.vue'
+// import T from './components/T.vue'
 import './debug'
 
 const app = createApp(App)
