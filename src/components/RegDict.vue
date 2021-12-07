@@ -70,7 +70,6 @@ function begin() {
     })
 }
 
-console.log(233)
 let clear
 watch(
   () => int.value.trim().toLowerCase(),
@@ -94,7 +93,6 @@ watch(
 
   {{ outMax }}
   {{ outCount }}
-  11
   <Item
     :all="[out.start, out.end, out.else]"
     :outMax="outMax * 7 + 20 + 'px'"
