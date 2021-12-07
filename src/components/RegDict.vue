@@ -1,7 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
 import Item from './Item.vue'
-
 function generate(arr, key) {
   outMax.value = arr
     .map(e => e.word.length)
@@ -50,7 +49,7 @@ const n = ref(500) //页数
 const isMore = ref(true)
 
 const int = ref('key')
-const out = ref([])
+const out = ref({ start: [] })
 const outMax = ref(0)
 const outCount = ref(0)
 
@@ -70,7 +69,6 @@ function begin() {
     })
 }
 
-console.log(233)
 let clear
 watch(
   () => int.value.trim().toLowerCase(),
@@ -94,7 +92,6 @@ watch(
 
   {{ outMax }}
   {{ outCount }}
-  11
   <Item
     :all="[out.start, out.end, out.else]"
     :outMax="outMax * 7 + 20 + 'px'"
