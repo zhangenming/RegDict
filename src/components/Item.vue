@@ -1,12 +1,13 @@
 <script setup>
 defineProps({
-  all: Array,
+  all: Object,
   outMax: String,
 })
 </script>
 
 <template>
-  <ul v-for="words of all" v-if="outMax !== '20px'">
+  <ul v-for="(words, type) of all">
+    <li>{{ type }}</li>
     <li v-for="{ l, m, r, definition } of words">
       <span>
         <span>{{ l }}</span>

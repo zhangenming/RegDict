@@ -2,12 +2,12 @@
 import { ref, watch } from 'vue'
 import Item from './Item.vue'
 function generate(arr, key) {
+  outCount.value = arr.length
+
   outMax.value = arr
     .map(e => e.word.length)
     .sort((l, r) => l - r)
     .pop()
-
-  outCount.value = arr.length
 
   return arr
     .map(({ word, definition }) => {
@@ -25,13 +25,15 @@ function generate(arr, key) {
     .sort((l, r) => (l.word > r.word ? 1 : -1))
     .reduce(
       (reduce, now) => {
-        if (now.word.startsWith(key)) reduce.start.push(now)
+        if (now.word === key) reduce.self.push(now)
+        else if (now.word.startsWith(key)) reduce.start.push(now)
         else if (now.word.endsWith(key)) reduce.end.push(now)
-        else reduce.else.push(now)
+        else reduce.mid.push(now)
         return reduce
       },
-      { start: [], end: [], else: [] }
+      { self: [], start: [], end: [], mid: [] }
     )
+
   // .filter(e => !out.value.find(ee => ee.word.word === e.word))
 
   // .filter(
@@ -49,7 +51,7 @@ const n = ref(500) //页数
 const isMore = ref(true)
 
 const int = ref('key')
-const out = ref({ start: [] })
+const out = ref('nodata')
 const outMax = ref(0)
 const outCount = ref(0)
 
@@ -92,11 +94,7 @@ watch(
 
   {{ outMax }}
   {{ outCount }}
-  <Item
-    :all="[out.start, out.end, out.else]"
-    :outMax="outMax * 7 + 20 + 'px'"
-  />
-
+  <Item v-if="out !== 'nodata'" :all="out" :outMax="outMax * 8 + 'px'" />
   <!-- {{ ''.llt }} -->
 </template>
 
