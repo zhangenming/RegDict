@@ -1,14 +1,9 @@
 <script setup>
-  import RegDict from './components/RegDict.vue'
+import RegDict from './components/RegDict.vue'
 </script>
 
 <template>
   <RegDict />
 </template>
 
-<style>
-  #app {
-    font-family: Arial;
-    color: #2c3e50;
-  }
-</style>
+<style></style>
