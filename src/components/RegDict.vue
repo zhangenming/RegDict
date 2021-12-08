@@ -27,10 +27,10 @@
         (reduce, now) => {
           if (now.word.startsWith(key)) reduce.start.push(now)
           else if (now.word.endsWith(key)) reduce.end.push(now)
-          else reduce.else.push(now)
+          else reduce.xxxs.push(now)
           return reduce
         },
-        { start: [], end: [], else: [] }
+        { start: [], end: [], xxxs: [] }
       )
     // .filter(e => !out.value.find(ee => ee.word.word === e.word))
 

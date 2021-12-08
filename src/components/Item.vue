@@ -37,7 +37,7 @@
     padding: 0 10px;
   }
   li:nth-child(even) {
-    background: #eee;
+    background: #f6f6f6;
   }
   li > span:nth-child(1) {
     width: v-bind(outMax);
