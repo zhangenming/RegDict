@@ -1,6 +1,11 @@
 <script setup>
 import { ref, watch } from 'vue'
 import Item from './Item.vue'
+function decodeUnicode(str) {
+  return str.replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
+    return String.fromCharCode(parseInt(match.replace(/\\u/, ''), 16))
+  })
+}
 function generate(arr, key) {
   outCount.value = arr.length
 
@@ -39,18 +44,13 @@ function generate(arr, key) {
   // .filter(
   //   (e, i, arr) => arr.findIndex(ee => ee.definition === e.definition) === i
   // )
-  function decodeUnicode(str) {
-    return str.replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
-      return String.fromCharCode(parseInt(match.replace(/\\u/, ''), 16))
-    })
-  }
 }
 
 const m = ref(0) //idx
-const n = ref(500) //页数
+const n = ref(100) //页数
 const isMore = ref(true)
 
-const int = ref('key')
+const int = ref('z*')
 const out = ref('nodata')
 const outMax = ref(0)
 const outCount = ref(0)
@@ -58,22 +58,22 @@ const outCount = ref(0)
 function begin() {
   const key = int.value.trim().toLowerCase()
   const keyPro = (() => {
-    if (['.', '?'].includes(key)) return key
+    if (['.', '*'].some(k => key.includes(k))) return key
     if (key === '') return '*'
     return `*${key}*`
   })()
 
   fetch(`https://regdict.com/regdict/?key=${keyPro}&m=${m.value}&n=${n.value}`)
-    .then(r => r.json())
+    .then(_ => _.json())
     .then(({ words, more }) => {
-      out.value = generate(words, key)
+      out.value = generate(words, key.replaceAll('.', '').replaceAll('*', ''))
       isMore.value = more
     })
 }
 
 let clear
 watch(
-  () => int.value.trim().toLowerCase(),
+  () => int.value.toLowerCase(),
   () => {
     clearTimeout(clear)
     clear = setTimeout(begin, 1000)
@@ -81,6 +81,32 @@ watch(
   // { immediate: true }
 )
 
+let m_ = 0
+let isMore_ = true
+async function gets() {
+  m_ += 100
+  const tmp = await fetch(`https://regdict.com/regdict/?key=z*&m=${m_}&n=100`)
+  const { words, more } = await tmp.json()
+  isMore_ = more
+  return words.map(({ word, definition }) => ({ word, definition }))
+}
+
+const ARR = []
+document.onclick = async () => {
+  if (!isMore_) return
+
+  const data = await gets()
+  ARR.push(
+    ...data.map(({ word, definition }) => ({
+      word,
+      definition: decodeUnicode(definition),
+    }))
+  )
+
+  localStorage.setItem('x', JSON.stringify(ARR))
+
+  console.log(ARR, localStorage)
+}
 // const refresh = ref([])
 </script>
 
