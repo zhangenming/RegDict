@@ -6,54 +6,48 @@ const { data, int } = defineProps({
   data: Array,
   int: String,
   selects: Array,
-  refresh: Array,
 })
-const outLength = ref(0)
-const outLength2 = ref(0)
-
 const words_ = []
 
-function generate(arr, key) {
-  outLength.value = arr.length
-  outLength2.value = [...new Set(arr.map(e => e.word))].length
-
-  return arr
-    .map?.(old => {
-      const idx = old.word.indexOf(key)
-      return {
-        //new
-        l: old.word.slice(0, idx),
-        m: key,
-        r: old.word.slice(idx + key.length),
-        //old
-        ...old,
-      }
-    })
-    .reduce(
-      (reduce, now) => {
-        if (now.word === key) reduce.self.push(now)
-        else if (now.word.startsWith(key)) reduce.start.push(now)
-        else if (now.word.endsWith(key)) reduce.end.push(now)
-        else reduce.mid.push(now)
-        return reduce
-      },
-      { self: [], start: [], end: [], mid: [] }
-    )
-}
-let alls = generate(data, int.replaceAll('.', '').replaceAll('*', ''))
+const outLength = data.length
+const outLength2 = [...new Set(data.map(e => e.word))].length
+const alls = data
+  .map(old => {
+    const idx = old.word.indexOf(int)
+    return {
+      //new
+      l: old.word.slice(0, idx),
+      m: int,
+      r: old.word.slice(idx + int.length),
+      //old
+      ...old,
+    }
+  })
+  .reduce(
+    (reduce, now) => {
+      if (now.word === int) reduce.self.push(now)
+      else if (now.word.startsWith(int)) reduce.start.push(now)
+      else if (now.word.endsWith(int)) reduce.end.push(now)
+      else reduce.mid.push(now)
+      return reduce
+    },
+    { self: [], start: [], end: [], mid: [] }
+  )
 </script>
 
 <template>
   <div class="item">
-    <span>{{ refresh }}</span>
     <button
       @click="$emit('select', name)"
       :class="{ selected: selects.includes(name) }"
     >
       select
     </button>
+
     <button @click="$emit('del', name)">del</button>
+
     {{ name }}: {{ outLength }}({{ outLength2 }})
+
     <ul v-for="(words, type) of alls">
       <li>{{ type }}</li>
       <li v-for="{ l, m, r, definition, word } of words">

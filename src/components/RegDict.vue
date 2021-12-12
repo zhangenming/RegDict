@@ -18,13 +18,13 @@ function decodeUnicode(str) {
 
 const int = ref('z*')
 const m = ref(0) // now
-const n = ref(200) // per
+const n = ref(50) // per
 
 const ARR = []
 
-async function gets() {
+async function get(_int) {
   const keyPro = (() => {
-    const key = int.value.trim().toLowerCase()
+    const key = _int.trim().toLowerCase()
     if (['.', '*'].some(k => key.includes(k))) return key
     if (key === '') return '*'
     return `*${key}*`
@@ -38,32 +38,38 @@ async function gets() {
   return await tmp.json()
 }
 
-async function main() {
-  await sleep(500)
+async function gets(int) {
+  await sleep(200)
 
-  const { words, more } = await gets()
+  const { words, more } = await get(int)
   ARR.push(...words)
 
   if (more) {
-    main()
+    return gets(int)
   } else {
     console.log('done')
-    localStorage.setItem(n.value, JSON.stringify(ARR))
+    m.value = 0
+    localStorage.setItem(`${int}-${n.value}`, JSON.stringify(ARR))
   }
 }
 
-const allData = Object.entries(localStorage)
-  .sort(([l], [r]) => l - r)
-  .map(([name, data]) => [
-    name,
-    JSON.parse(data)
-      .map(({ word, definition }) => ({
-        word,
-        definition: decodeUnicode(definition),
-      }))
-      .sort((q, w) => q.word.localeCompare(w.word)),
-    // .sort((l, r) => (l.word > r.word ? 1 : -1))
-  ])
+const allData = ref([])
+
+readFromStorage()
+function readFromStorage() {
+  allData.value = Object.entries(localStorage)
+    .sort(([l], [r]) => l - r)
+    .map(([name, data]) => [
+      name,
+      JSON.parse(data)
+        .map(({ word, definition }) => ({
+          word,
+          definition: decodeUnicode(definition),
+        }))
+        .sort((q, w) => q.word.localeCompare(w.word)),
+      // .sort((l, r) => (l.word > r.word ? 1 : -1))
+    ])
+}
 
 const selects = ref(reactive([]))
 function selectHandle(name) {
@@ -81,23 +87,37 @@ function selectHandle(name) {
 }
 function delHandle(name) {
   localStorage.removeItem(name)
+  readFromStorage()
   refresh.value.push('')
 }
+
+const keys = Array(2)
+  .fill()
+  .map((_, i) => 'z' + String.fromCharCode(97 + i) + '*')
+
+;(async () => {
+  return
+  for (const key of keys) {
+    await gets(key)
+    'end'.ll
+  }
+})()
 </script>
 
 <template>
   <!-- refresh: {{ refresh.push('') }} -->
   <!-- <button @click="() => refresh.push('')">refresh</button> -->
   <!-- {{ refresh.length }} -->
-  <span>{{ refresh }}</span>
+  <!-- <span style="display: none">{{ refresh }}</span> -->
   <!-- {{ ''.llt }} -->
+  {{ Math.random() }}
 
   <p>
     查询
     <input v-model="int" type="text" />
     数目
     <input v-model.number="n" type="text" />
-    <button @click="main">main</button>
+    <button @click="() => gets(int)">main</button>
   </p>
 
   <div class="content">
@@ -109,15 +129,13 @@ function delHandle(name) {
         v-bind="{
           name,
           data,
-          int,
+          int: int.replaceAll('.', '').replaceAll('*', ''),
           selects: selects.slice(0, 2),
-          refresh,
         }"
       />
     </div>
   </div>
   <!-- {{ ''.llt }} -->
-  <!-- Array(26).fill().map((_,i)=>String.fromCharCode(97+i)) -->
 </template>
 
 <style scoped>
