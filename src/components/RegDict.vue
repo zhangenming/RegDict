@@ -2,10 +2,13 @@
 import { reactive, ref, watch } from 'vue'
 import Item from './Item.vue'
 import T from './T.vue'
-// const refresh = ref([])
+const refresh = ref([])
 
 async function sleep(n) {
   return new Promise(q => setTimeout(q, n))
+}
+function solo(arr) {
+  return [...new Set(arr)]
 }
 function decodeUnicode(str) {
   return str.replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
@@ -13,97 +16,104 @@ function decodeUnicode(str) {
   })
 }
 
-const m = ref(0) //idx
-const n = ref(500) //页数
-const isMore = ref(true)
-
 const int = ref('z*')
-const out = ref('nodata')
-function begin() {
-  const key = int.value.trim().toLowerCase()
+const m = ref(0) // now
+const n = ref(200) // per
+
+const ARR = []
+
+async function gets() {
   const keyPro = (() => {
+    const key = int.value.trim().toLowerCase()
     if (['.', '*'].some(k => key.includes(k))) return key
     if (key === '') return '*'
     return `*${key}*`
   })()
 
-  fetch(`https://regdict.com/regdict/?key=${keyPro}&m=${m.value}&n=${n.value}`)
-    .then(_ => _.json())
-    .then(({ words, more }) => {
-      out.value = words
-      isMore.value = more
-    })
-}
-
-let clear
-watch(
-  () => int.value.toLowerCase(),
-  () => {
-    clearTimeout(clear)
-    clear = setTimeout(begin, 1000)
-  }
-  // { immediate: true }
-)
-
-const ARR = []
-const n_ = 550 //per
-let m_ = -n_ //now
-async function gets() {
-  m_ += n_
-  const tmp = await fetch(`https://regdict.com/regdict/?key=z*&m=${m_}&n=${n_}`)
+  m.value += n.value
+  const tmp = await fetch(
+    'https://regdict.com/regdict/' +
+      `?key=${keyPro}&m=${m.value - n.value}&n=${n.value}`
+  )
   return await tmp.json()
 }
-async function sets(data) {
-  ARR.push(
-    ...data.map(({ word, definition }) => ({
-      word,
-      definition: decodeUnicode(definition),
-    }))
-  )
-}
+
 async function main() {
+  await sleep(500)
+
   const { words, more } = await gets()
-  sets(words)
+  ARR.push(...words)
+
   if (more) {
-    await sleep(500)
     main()
   } else {
-    localStorage.setItem(
-      `z${n_}`,
-      JSON.stringify(
-        ARR.sort((q, w) => q.word.localeCompare(w.word))
-        // .sort((l, r) => (l.word > r.word ? 1 : -1))
-      )
-    )
-    console.log(
-      '99',
-      localStorage.getItem('x') === localStorage.getItem(`z${n_}`)
-    )
+    console.log('done')
+    localStorage.setItem(n.value, JSON.stringify(ARR))
   }
 }
 
-const allData = Object.entries(localStorage).sort((q, w) =>
-  q[0].localeCompare(w[0])
-)
+const allData = Object.entries(localStorage)
+  .sort(([l], [r]) => l - r)
+  .map(([name, data]) => [
+    name,
+    JSON.parse(data)
+      .map(({ word, definition }) => ({
+        word,
+        definition: decodeUnicode(definition),
+      }))
+      .sort((q, w) => q.word.localeCompare(w.word)),
+    // .sort((l, r) => (l.word > r.word ? 1 : -1))
+  ])
+
+const selects = ref(reactive([]))
+function selectHandle(name) {
+  selects.value.unshift(name)
+  if (selects.value.length < 2) return
+  let [l, r] = selects.value.sort((q, w) => q - w)
+
+  l = JSON.parse(localStorage[l]).map(e => e.word)
+  r = JSON.parse(localStorage[r] || '[]').map(e => e.word)
+
+  console.clear()
+  const L = solo(l.filter(e => !r.includes(e))).ll
+  // const M = solo(l.filter(e => r.includes(e)))
+  const R = solo(r.filter(e => !l.includes(e))).ll
+}
+function delHandle(name) {
+  localStorage.removeItem(name)
+  refresh.value.push('')
+}
 </script>
 
 <template>
   <!-- refresh: {{ refresh.push('') }} -->
   <!-- <button @click="() => refresh.push('')">refresh</button> -->
   <!-- {{ refresh.length }} -->
-  <!-- {{ refresh }} -->
-  <button @click="main">main</button>
-  <button @click="begin">begin</button>
+  <span>{{ refresh }}</span>
   <!-- {{ ''.llt }} -->
 
   <p>
+    查询
     <input v-model="int" type="text" />
+    数目
+    <input v-model.number="n" type="text" />
+    <button @click="main">main</button>
   </p>
 
   <div class="content">
     <!-- <Item v-if="out !== 'nodata'" :data="out" :int="int" /> -->
     <div v-for="[name, data] of allData">
-      <Item :name="name" :data="data" :int="int" />
+      <Item
+        @select="selectHandle"
+        @del="delHandle"
+        v-bind="{
+          name,
+          data,
+          int,
+          selects: selects.slice(0, 2),
+          refresh,
+        }"
+      />
     </div>
   </div>
   <!-- {{ ''.llt }} -->
@@ -120,5 +130,8 @@ input {
 .item {
   display: flex;
   flex-direction: column;
+}
+input {
+  width: 70px;
 }
 </style>

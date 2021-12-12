@@ -1,27 +1,32 @@
 <script setup>
 import { ref } from 'vue'
 
-let { data, int } = defineProps({
+const { data, int } = defineProps({
   name: String,
-  data: String,
+  data: Array,
   int: String,
+  selects: Array,
+  refresh: Array,
 })
 const outLength = ref(0)
+const outLength2 = ref(0)
+
+const words_ = []
 
 function generate(arr, key) {
   outLength.value = arr.length
+  outLength2.value = [...new Set(arr.map(e => e.word))].length
 
   return arr
-    .map?.(({ word, definition }) => {
-      const idx = word.indexOf(key)
+    .map?.(old => {
+      const idx = old.word.indexOf(key)
       return {
         //new
-        l: word.slice(0, idx),
+        l: old.word.slice(0, idx),
         m: key,
-        r: word.slice(idx + key.length),
+        r: old.word.slice(idx + key.length),
         //old
-        definition,
-        word,
+        ...old,
       }
     })
     .reduce(
@@ -35,19 +40,28 @@ function generate(arr, key) {
       { self: [], start: [], end: [], mid: [] }
     )
 }
-let alls = generate(
-  JSON.parse(data),
-  int.replaceAll('.', '').replaceAll('*', '')
-)
+let alls = generate(data, int.replaceAll('.', '').replaceAll('*', ''))
 </script>
 
 <template>
   <div class="item">
-    {{ name }}:
-    {{ outLength }}
+    <span>{{ refresh }}</span>
+    <button
+      @click="$emit('select', name)"
+      :class="{ selected: selects.includes(name) }"
+    >
+      select
+    </button>
+    <button @click="$emit('del', name)">del</button>
+    {{ name }}: {{ outLength }}({{ outLength2 }})
     <ul v-for="(words, type) of alls">
       <li>{{ type }}</li>
-      <li v-for="{ l, m, r, definition } of words">
+      <li v-for="{ l, m, r, definition, word } of words">
+        {{
+          (() => {
+            words_.push(word)
+          })()
+        }}
         <span>
           <span>{{ l }}</span>
           <span>{{ m }}</span>
@@ -93,5 +107,8 @@ li > span:nth-child(2) {
 }
 li span span:nth-child(2) {
   color: #0088de;
+}
+.selected {
+  background: #eae;
 }
 </style>
