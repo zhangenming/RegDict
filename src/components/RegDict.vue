@@ -4,12 +4,19 @@ import Item from './Item.vue'
 import T from './T.vue'
 const refresh = ref([])
 
+function merge() {
+  return readFromStorage()
+    .map(e => e[1])
+    .flat()
+    .map(e => e.word)
+}
 async function sleep(n) {
   return new Promise(q => setTimeout(q, n))
 }
 function solo(arr) {
   return [...new Set(arr)]
 }
+
 function decodeUnicode(str) {
   return str.replace(/\\u[\dA-Fa-f]{4}/g, function (match) {
     return String.fromCharCode(parseInt(match.replace(/\\u/, ''), 16))
@@ -17,48 +24,48 @@ function decodeUnicode(str) {
 }
 
 const int = ref('z*')
-const m = ref(0) // now
-const n = ref(50) // per
+const offset = ref(0) // now
+const limit = ref(200) // per
 
-const ARR = []
-
+const allData = ref([])
 async function get(_int) {
-  const keyPro = (() => {
+  const pattern = (() => {
     const key = _int.trim().toLowerCase()
     if (['.', '*'].some(k => key.includes(k))) return key
     if (key === '') return '*'
     return `*${key}*`
   })()
 
-  m.value += n.value
+  offset.value += limit.value
   const tmp = await fetch(
-    'https://regdict.com/regdict/' +
-      `?key=${keyPro}&m=${m.value - n.value}&n=${n.value}`
+    'https://api.nestattacked.com/regdict/v1/words?' +
+      `pattern=${pattern}&offset=${offset.value - limit.value}&limit=${
+        limit.value
+      }`
   )
   return await tmp.json()
 }
 
 async function gets(int) {
-  await sleep(200)
-
+  let ARR = []
   const { words, more } = await get(int)
   ARR.push(...words)
 
   if (more) {
-    return gets(int)
+    await sleep(1000)
+    await gets(int)
   } else {
     console.log('done')
-    m.value = 0
-    localStorage.setItem(`${int}-${n.value}`, JSON.stringify(ARR))
+    ARR = []
+    offset.value = 0
+    localStorage.setItem(`${int}`, JSON.stringify(ARR))
   }
 }
 
-const allData = ref([])
-
-readFromStorage()
+allData.value = readFromStorage()
 function readFromStorage() {
-  allData.value = Object.entries(localStorage)
-    .sort(([l], [r]) => l - r)
+  return Object.entries(localStorage)
+    .sort(([l], [r]) => l.localeCompare(r))
     .map(([name, data]) => [
       name,
       JSON.parse(data)
@@ -85,20 +92,24 @@ function selectHandle(name) {
   // const M = solo(l.filter(e => r.includes(e)))
   const R = solo(r.filter(e => !l.includes(e))).ll
 }
+
 function delHandle(name) {
   localStorage.removeItem(name)
-  readFromStorage()
+  allData.value = readFromStorage()
   refresh.value.push('')
 }
 
-const keys = Array(2)
-  .fill()
-  .map((_, i) => 'z' + String.fromCharCode(97 + i) + '*')
+const keys = [...'abcdefghijklmnopqrstuvwxyz'].map(
+  (_, i) => `y${String.fromCharCode(97 + i)}*`
+)
 
 ;(async () => {
   return
   for (const key of keys) {
+    if (localStorage[key]) continue
+    console.log(key)
     await gets(key)
+    await sleep(500)
     'end'.ll
   }
 })()
@@ -116,7 +127,7 @@ const keys = Array(2)
     查询
     <input v-model="int" type="text" />
     数目
-    <input v-model.number="n" type="text" />
+    <input v-model.number="limit" type="text" />
     <button @click="() => gets(int)">main</button>
   </p>
 
@@ -135,6 +146,7 @@ const keys = Array(2)
       />
     </div>
   </div>
+  <div style="display: none">{{ allData }}</div>
   <!-- {{ ''.llt }} -->
 </template>
 
@@ -144,10 +156,6 @@ input {
 }
 .content {
   display: flex;
-}
-.item {
-  display: flex;
-  flex-direction: column;
 }
 input {
   width: 70px;

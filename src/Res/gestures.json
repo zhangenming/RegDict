@@ -1,0 +1,2322 @@
+{
+  "General": {
+    "Id": "4O9RKu8cgkWeA3_G2-tIsg",
+    "Name": "General",
+    "Intents": [
+      {
+        "Name": "Copy",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^(c)"
+        }
+      },
+      {
+        "Name": "Paste",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^v"
+        }
+      },
+      {
+        "Name": "Cut",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^x"
+        }
+      },
+      {
+        "Name": "WG Settings",
+        "ExecuteOnRecognize": false,
+        "DontShowName": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "KEYBOARD:87"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "KEYBOARD:71"
+          }
+        ],
+        "Command": {
+          "$type": "Menu",
+          "Columns":2,
+          "Commands": [
+            {
+              "Name": "🔧",
+              "Command": {
+                "$type": "Script",
+                "Code": "function wgAction(pos,wid,pid,exe,title,mode)\n  WG.ShowSettings()\nend"
+              }
+            },
+            {
+              "Name": "⏸",
+              "Command": {
+                "$type": "Script",
+                "Code": "function wgAction(pos,wid,pid,exe,title,mode)\n  WG.SetPaused(not WG.IsPaused())\nend"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Name": "Web Search",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,50,
+              0,0,
+              0,50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "WebSearch",
+          "Browser": "default",
+          "Engine": "https://baidu.com/s?wd={WG_SELECTED_TEXT}"
+        }
+      },
+      {
+        "Name": "Enter",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50,
+              50,
+              50,
+              50,
+              100
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{ENTER}"
+        }
+      },
+      {
+        "Name": "Paste & Enter",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^v{ENTER}"
+        }
+      },
+      {
+        "Name": "Forward",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "%{RIGHT}"
+        }
+      },
+      {
+        "Name": "Back",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "%{LEFT}"
+        }
+      },
+      {
+        "Name": "New",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0,
+              50,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^t"
+        }
+      },     
+      {
+        "Name": "Reopen Tab",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0,
+              50,
+              50
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^+t"
+        }
+      },
+      {
+        "Name": "Refresh",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,50,
+              0,50,
+              0,0,
+              50,0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{F5}"
+        }
+      },
+      {
+        "Name": "New",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^t"
+        }
+      },
+
+      {
+        "Name": "Close",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50,
+              50,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^w"
+        }
+      },
+      {
+        "Name": "Quit",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              50,
+              50,
+              0,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "%{F4}"
+        }
+      },
+      {
+        "Name": "Kill",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              50,
+              50,
+              0,
+              50
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "Cmd",
+          "Code": "taskkill /F /PID %WG_TARGET_PID%"
+        }
+      },
+      {
+        "Name": "Start",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "#",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Show Desktop",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "#d",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Switch App",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "%{TAB}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Task Switcher",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^%{TAB}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Play/Pause",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{MEDIA_PLAY}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Volume +",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:-120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{VOLUME_UP 2}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Volume -",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{VOLUME_DOWN 2}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Brighter",
+        "ExecuteOnRecognize": true,
+        "DontShowName": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:-120"
+          }
+        ],
+        "Command": {
+          "$type": "Script",
+          "Code": "function wgAction(pos,wid,pid,exe,title,mode)\n  local result = WG.SetBrightness(pos, 5);\r\n  if(result >= 0) then\r\n    WG.ShowToast('☀ '..result..'%', 1000);\r\n  end\nend"
+        }
+      },
+      {
+        "Name": "Darker",
+        "ExecuteOnRecognize": true,
+        "DontShowName": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:120"
+          }
+        ],
+        "Command": {
+          "$type": "Script",
+          "Code": "function wgAction(pos,wid,pid,exe,title,mode)\n  local result = WG.SetBrightness(pos, -5);\r\n  if(result >= 0) then\r\n    WG.ShowToast('☀ '..result..'%', 1000);\r\n  end\nend"
+        }
+      },
+      {
+        "Name": "Mute",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{VOLUME_MUTE}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Prev Track",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{MEDIA_PREV}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Next Track",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{MEDIA_NEXT}",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Task Manager",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              50,
+              50,
+              0,
+              50,
+              50,
+              50,
+              0,
+              50,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "Cmd",
+          "Code": "taskmgr"
+        }
+      },
+      {
+        "Name": "ESC",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              50,
+              50,
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{ESC}"
+        }
+      },
+      {
+        "Name": "Minimize",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "WindowControl",
+          "Command": "WINDOW_MINIMIZE"
+        }
+      },
+      {
+        "Name": "Maximize",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "WindowControl",
+          "Command": "WINDOW_TOGGLE_MAXIMIZE"
+        }
+      },
+      {
+        "Name": "Fullscreen",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              50,
+              0
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{F11}"
+        }
+      },
+      {
+        "Name": "Topmost",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              100,
+              0,
+              50,
+              50,
+              50,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "WindowControl",
+          "Command": "WINDOW_TOGGLE_TOPMOST"
+        }
+      },
+      {
+        "Name": "Prev Tab",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              50,
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^+{TAB}"
+        }
+      },
+      {
+        "Name": "Next Tab",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^\t"
+        }
+      },
+      {
+        "Name": "Prev Tab",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^+{TAB}"
+        }
+      },
+      {
+        "Name": "Next Tab",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^{TAB}"
+        }
+      },
+      {
+        "Name": "Home",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              50,
+              0,
+              50,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{HOME}"
+        }
+      },
+      {
+        "Name": "End",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              0,
+              0,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{END}"
+        }
+      },
+      {
+        "Name": "Next Tab",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:-120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^{TAB}"
+        }
+      },
+      {
+        "Name": "Prev Tab",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^+{TAB}"
+        }
+      },
+      {
+        "Name": "System Settings",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys":"#(i)",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "WG Settings",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Command": {
+          "$type": "Script",
+          "Code": "function wgAction(pos,wid,pid,exe,title,mode)\n  WG.ShowSettings()\nend"
+        }
+      },
+      {
+        "Name": "Hibernate",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              0,
+              50,
+              50,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "Cmd",
+          "Code": "shutdown /h"
+        }
+      },
+      {
+        "Name": "Zoom In",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:-120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^="
+        }
+      },
+      {
+        "Name": "Zoom Out",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "VSCROLL:120"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^-"
+        }
+      },
+      {
+        "Name": "Zoom Reset",
+        "ExecuteOnRecognize": true,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0
+            ]
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^0"
+        }
+      },
+      {
+        "Name": "Backspace",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              0,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{BACKSPACE}"
+        }
+      },
+      {
+        "Name": "Delete",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "{DEL}"
+        }
+      },
+      {
+        "Name": "Snip & Sketch",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              50,
+              0,
+              0,
+              50,
+              0,
+              50,
+              50,
+              0,
+              50
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "#(+(s))",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Next Desktop",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              0,
+              0,
+              50,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^(#({RIGHT}))",
+          "ActivateTargetWindow": false
+        }
+      },
+      {
+        "Name": "Prev Desktop",
+        "ExecuteOnRecognize": false,
+        "Gesture": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          },
+          {
+            "$type": "Stroke",
+            "P": [
+              50,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "Command": {
+          "$type": "SendKeys",
+          "Keys": "^(#({LEFT}))",
+          "ActivateTargetWindow": false
+        }
+      }
+    ],
+    "Triggers": [
+      {
+        "Def": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 1
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 2
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 4
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 8
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 3
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 6
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 9
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "Scroll",
+            "IsHorizontal": false
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:1"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:2"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:0"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:3"
+          }
+        ],
+        "Enabled": true
+      },
+      {
+        "Def": [
+          {
+            "$type": "MoveToEdgeCorner",
+            "EdgeCorner": {
+              "Value": 12
+            }
+          },
+          {
+            "$type": "KeyDown",
+            "Key": "MOUSE:4"
+          }
+        ],
+        "Enabled": true
+      }
+    ]
+  },
+  "Groups": [],
+  "Apps": [
+    {
+      "$type": "WinAppTarget",
+      "Path": "C:\\Windows\\explorer.exe",
+      "Id": "7YyFgiGq4kiJrHJXW9F6iw",
+      "Name": "Windows Explorer",
+      "Intents": [
+        {
+          "Name": "New",
+          "ExecuteOnRecognize": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "Stroke",
+              "P": [
+                0,
+                0,
+                50,
+                0,
+                50,
+                50
+              ]
+            }
+          ],
+          "Command": {
+            "$type": "SendKeys",
+            "Keys": "^(n)"
+          }
+        },
+        {
+          "Name": "Rename",
+          "ExecuteOnRecognize": false,
+          "DontShowName": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "KeyDown",
+              "Key": "KEYBOARD:82"
+            }
+          ],
+          "Command": {
+            "$type": "SendKeys",
+            "Keys": "{F2}",
+            "Secured": false
+          }
+        },
+        {
+          "Name": "Open In New Win",
+          "ExecuteOnRecognize": false,
+          "DontShowName": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "KeyDown",
+              "Key": "KEYBOARD:32"
+            }
+          ],
+          "Command": {
+            "$type": "SendKeys",
+            "Keys": "+{F10}{SLEEP 50}e{SLEEP 50}{ENTER}",
+            "Secured": false
+          }
+        },
+        {
+          "Name": "Ctrl Drag",
+          "ExecuteOnRecognize": true,
+          "DontShowName": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:0"
+            },
+            {
+              "$type": "Stroke",
+              "P": [
+                0,
+                0,
+                50,
+                0
+              ]
+            }
+          ],
+          "Command": {
+            "$type": "SendKeys",
+            "Keys": "^({MOUSE_LEFT})",
+            "Secured": false,
+            "Mode": "Mapping"
+          }
+        }
+      ],
+      "Triggers": []
+    },
+    {
+      "$type": "WinAppTarget",
+      "Path": "C:\\Windows\\System32\\cmd.exe",
+      "Id": "QyPJO-f0qkybVEudcP_4Ow",
+      "Name": "Cmd",
+      "Intents": [
+        {
+          "Name": "New",
+          "ExecuteOnRecognize": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "Stroke",
+              "P": [
+                0,
+                0,
+                50,
+                0,
+                50,
+                50
+              ]
+            }
+          ],
+          "Command": {
+            "$type": "Cmd",
+            "Code": "start cmd"
+          }
+        }
+      ],
+      "Triggers": []
+    }
+  ],
+  "Specials": [
+    {
+      "$type": "WinDesktopTarget",
+      "Id": "E2rac3YGCEu4wRRzwacnYg",
+      "Name": "Desktop",
+      "Intents": [
+        {
+          "Name": "Show Desktop",
+          "ExecuteOnRecognize": false,
+          "Gesture": [
+            {
+              "$type": "KeyDown",
+              "Key": "MOUSE:1"
+            },
+            {
+              "$type": "Stroke",
+              "P": [
+                50,
+                0,
+                0,
+                50
+              ]
+            }
+          ],
+          "Command": {
+            "$type": "SendKeys",
+            "Keys": "#(d)"
+          }
+        }
+      ],
+      "Triggers": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "StartDragTimeout": 500,
+  "ShowStartDragTimeoutIndicator": true,
+  "ShowPath": true,
+  "ShowGestureName": true,
+  "ShowStatusIcon": true,
+  "PathColorNormal": "#00000030",
+  "PathColorRecognized": "#FF5900FF",
+  "LabelColorNormal": "#00000030",
+  "LabelColorExecuted": "#20D678E6",
+  "TargetMode": "UnderCursor",
+  "PathLineWidth": 1.5,
+  "GestureNamePos": 0.25,
+  "SkipVersion": null,
+  "FadeOutExecuted":true,
+  "PauseResumeHotkey": "#({ESC})",
+  "StrokeMinMove":30
+}

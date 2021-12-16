@@ -4,5 +4,5 @@ import App from './App.vue'
 import './debug'
 
 const app = createApp(App)
-app.mount('#app')
 app.config.globalProperties.console = console
+app.mount('#app')

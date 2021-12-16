@@ -7,13 +7,17 @@ const arr2 = ref([]) // ref(reactive([]))
 // const arr4 = ref(reactive([]))
 const arr3 = reactive([])
 const arr4 = reactive(ref([])) //reactive(ref(reactive([])))
+function handle1() {
+  arr.push(Math.random())
+}
 
-console.log(1)
+console.log(23)
 </script>
 
 <template>
-  <!--  <T :data="arr" />-->
-  <!--  <RegDict />-->
+  <button @click="handle1">button</button>
+  {{ arr }}
 </template>
 
 <style></style>
+

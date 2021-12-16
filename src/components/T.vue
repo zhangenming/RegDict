@@ -1,10 +1,25 @@
 <script setup>
-import { computed, ref } from 'vue'
-const r = ref([])
+import { computed, onUpdated, ref, toRefs } from 'vue'
+defineProps({
+  data: Array,
+})
+
+const { data } = toRefs(__props)
+
+const c = computed(() => data.value[0] * 2)
+
+// const selected = ref(selected)
+//
+// watch(selected, (selection, prevSelection) => {
+//    /* ... */
+// })
 </script>
 
 <template>
-  {{ Math.random() }}
-  {{ r.length }}
-  <button @click="() => r.push('')">T</button>
+  {{ data[0].ll }}--{{ c.ll }}--{{
+    (() => {
+      // c.ll
+      debugger
+    })()
+  }}
 </template>

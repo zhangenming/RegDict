@@ -1,24 +1,26 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 
-const { data, int } = defineProps({
+const props = defineProps({
   name: String,
   data: Array,
   int: String,
   selects: Array,
 })
-const words_ = []
+const { data, int } = toRefs(props)
 
-const outLength = data.length
-const outLength2 = [...new Set(data.map(e => e.word))].length
-const alls = data
+const outLength = data.value.length
+const outLength2 = computed(
+  () => [...new Set(data.value.map(e => e.word))].length
+)
+const alls = data.value
   .map(old => {
-    const idx = old.word.indexOf(int)
+    const idx = old.word.indexOf(int.value)
     return {
       //new
       l: old.word.slice(0, idx),
-      m: int,
-      r: old.word.slice(idx + int.length),
+      m: int.value,
+      r: old.word.slice(idx + int.value.length),
       //old
       ...old,
     }
@@ -33,13 +35,15 @@ const alls = data
     },
     { self: [], start: [], end: [], mid: [] }
   )
+
+const words_ = []
 </script>
 
 <template>
   <div class="item">
     <button
       @click="$emit('select', name)"
-      :class="{ selected: selects.includes(name) }"
+      :class="{ selected: selects?.includes(name) }"
     >
       select
     </button>

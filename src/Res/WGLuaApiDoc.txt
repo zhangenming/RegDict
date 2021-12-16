@@ -1,0 +1,78 @@
+﻿WG Lua Scripting API
+==============================================================
+-- 输出日志到日志窗口
+WG.Log (fmt [,arg0,...])
+
+-- 暂停执行 ms 毫秒
+WG.Sleep (ms)
+
+-- 获取/设置触发方式的启用状态
+WG.GetTriggerState (targetName, triggerId) -> 'on'|'off'|'auto'
+WG.SetTriggerState (targetName, triggerId, state:'on'|'off'|'auto')
+
+-- 获取/设置 WG 是否暂停
+WG.IsPaused () -> boolean
+WG.SetPaused (paused)
+
+-- 打开 WG 设置界面
+WG.ShowSettings ()
+
+-- 在屏幕上显示提示文字
+WG.ShowToast (msg, duration:number=500, color:string=nil)
+
+-- 获得/设置窗口是否置顶
+WG.IsWinTop (wid) -> boolean
+WG.SetWinTop (wid, topmost:boolean)
+
+-- 读取文件内容为字符串
+WG.ReadText (filePath) -> string
+
+-- 获得资源管理器窗口的文件路径 (如果不是 explorer 窗口, 则返回 nil)
+WG.GetExplorerPath (wid) -> string?
+
+-- 发送按键序列
+WG.SendKeys (keys, useTextByDefaultSyntax=false)
+
+-- 发送按下/释放按键序列
+WG.KeysDown (keys)
+WG.KeysUp (keys)
+
+-- 切换按键按下状态
+WG.ToggleKeys (keys)
+
+-- 获取按键是否处于按下状态
+WG.IsKeysPressed (keys) -> boolean
+
+-- 获取/设置屏幕亮度
+WG.GetBrightness (pos:POINT) -> number
+WG.SetBrightness (pos:POINT, percent_abs_or_delta:number, isDelta:boolean) -> number
+
+-- 按照类/标题查找窗口
+WG.FindWinByClass (regex) -> List<(Text:string, Hwnd: IntPtr)>
+WG.FindWinByTitle (regex) -> List<(Text:string, Hwnd: IntPtr)>
+
+-- 激活窗口
+WG.FocusWin (wid)
+
+-- 获得/设置窗口状态
+WG.GetWinState (wid) -> 'min'|'max'|'norm'
+WG.SetWinState (wid, state: 'min'|'max'|'norm'|'maxOrNorm')
+
+-- 获得/设置鼠标位置
+WG.GetMousePos () -> User32.POINT
+WG.SetMousePos (x, y)
+
+-- 获得/设置剪贴板文字或对象
+WG.GetClipboardText ()
+WG.SetClipboardText (text)
+WG.GetClipboardData (format:string)
+WG.SetClipboardData (format:string, data:object)
+
+-- 打开网址或文件
+WG.Open (url)
+
+-- 运行应用程序
+WG.Run (file [, waitExit, args, stdIn, vars:{}, workDir]) -> {Proc, StdOut, StdErr}
+
+-- 运行 Cmd 脚本
+WG.Cmd (code [, waitExit, vars:{}, workDir]) -> {Proc, StdOut, StdErr}

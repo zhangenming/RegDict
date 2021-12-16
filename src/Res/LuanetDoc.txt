@@ -1,0 +1,11 @@
+﻿NLua luanet API
+==============================================================
+  • luanet.enum (type_ref, enum_value: string|number) ➜ Enum\
+  • luanet.get_object_member (object, member)\
+  • luanet.import_type (type_name)\
+  • luanet.load_assembly (assembly_name)\
+  • luanet.make_object (object, superclass_name)\
+  • luanet.free_object (object)\
+  • luanet.get_method_bysig (parent, method_name, ...)\
+  • luanet.get_constructor_bysig (type_ref, ...)\
+  • luanet.ctype (type_ref) ➜ Type
