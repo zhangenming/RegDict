@@ -16,10 +16,10 @@ const c = computed(() => data.value[0] * 2)
 </script>
 
 <template>
-  {{ data[0].ll }}--{{ c.ll }}--{{
-    (() => {
-      // c.ll
-      debugger
-    })()
-  }}
+  <!--  {{ data[0].ll }}&#45;&#45;{{ c.ll }}&#45;&#45;{{-->
+  <!--    (() => {-->
+  <!--      // c.ll-->
+  <!--      debugger-->
+  <!--    })()-->
+  <!--  }}-->
 </template>
